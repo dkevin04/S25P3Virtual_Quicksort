@@ -1,1 +1,10 @@
 https://www.codejava.net/java-se/file-io/how-to-read-and-write-binary-files-in-java
+https://docs.oracle.com/javase/8/docs/api/java/lang/Byte.html
+https://stackoverflow.com/questions/35519210/java-arithmetic-operation-on-byte
+https://docs.oracle.com/en/java/javase/18/docs/api/java.base/java/io/RandomAccessFile.html
+
+byte data = Byte.valueOf("120");
+        byte[] stream = new byte[10];
+        stream[0] = data;
+        System.out.println(stream[0]);
+This will print 120, so 
