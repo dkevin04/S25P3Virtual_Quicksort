@@ -57,7 +57,7 @@ public class QuicksortTest extends TestCase {
 
         // hmmm... maybe do some sorting on that file ...
         // then we can do:
-        // assertTrue(CheckFile.check(fname));
+        assertTrue(CheckFile.check(fname));
     }
 
 
@@ -85,7 +85,7 @@ public class QuicksortTest extends TestCase {
         // Now the file *should* be sorted, so lets check!
 
         // TODO: In a real test, the following should work:
-        // assertTrue(CheckFile.check(fname));
+        assertTrue(CheckFile.check(fname));
     }
 
 }

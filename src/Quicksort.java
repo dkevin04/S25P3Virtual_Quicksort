@@ -51,10 +51,11 @@ public class Quicksort {
          */
         String inputFile = args[0];
         String outputFile = args[2];
-        byte[] fileContents = new byte[1024];
+        byte[] fileContents = new byte[4096];
         try (RandomAccessFile stmt = new RandomAccessFile(inputFile, "rw")) {
             stmt.read(fileContents);
-            quickSort(fileContents, 0, 1023);
+            quickSort(fileContents, 0, 4092);
+            stmt.seek(0);
             stmt.write(fileContents);
             stmt.close();
         }
