@@ -55,6 +55,7 @@ public class Quicksort {
         try (RandomAccessFile stmt = new RandomAccessFile(inputFile, "rw")) {
             stmt.read(fileContents);
             quickSort(fileContents, 0, 1023);
+            stmt.write(fileContents);
             stmt.close();
         }
         catch (IOException e) {
