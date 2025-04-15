@@ -36,6 +36,9 @@ import java.nio.file.Paths;
 // letter of this restriction.
 
 public class Quicksort {
+    static int cacheHits = 0;
+    static int writes = 0;
+    static int reads = 0;
 
     /**
      * @param args
@@ -52,9 +55,13 @@ public class Quicksort {
         String inputFile = args[0];
         String outputFile = args[2];
         byte[] fileContents = new byte[4096];
+        long beginTime = 0;
+        long endTime = 0;
         try (RandomAccessFile stmt = new RandomAccessFile(inputFile, "rw")) {
             stmt.read(fileContents);
+            beginTime = System.currentTimeMillis();
             quickSort(fileContents, 0, 4092);
+            endTime = System.currentTimeMillis();
             stmt.seek(0);
             stmt.write(fileContents);
             stmt.close();
@@ -64,6 +71,18 @@ public class Quicksort {
         }
         for (int i = 0; i < fileContents.length; i++) {
             System.out.print(fileContents[i] + " ");
+        }
+        try (RandomAccessFile stmt = new RandomAccessFile(outputFile, "rw")) {
+            stmt.writeChars("Standard sort on " + inputFile + "\n");
+            stmt.writeChars("Cache Hits: " + String.valueOf(cacheHits) + "\n");
+            stmt.writeChars("Disk Reads: " + String.valueOf(reads) + "\n");
+            stmt.writeChars("Disk Writes: " + String.valueOf(writes) + "\n");
+            long execTime = endTime - beginTime;
+            stmt.writeChars(String.valueOf(execTime));
+            stmt.close();
+        }
+        catch (IOException e) {
+            // Exception handling
         }
     }
 
