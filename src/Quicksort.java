@@ -1,7 +1,4 @@
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /*
  * A quicksort implementation which takes text files as input assuming each data
@@ -36,10 +33,6 @@ import java.nio.file.Paths;
 // letter of this restriction.
 
 public class Quicksort {
-    static int cacheHits = 0;
-    static int writes = 0;
-    static int reads = 0;
-
     /**
      * @param args
      *            Command line parameters. See the project spec!!!
@@ -49,18 +42,26 @@ public class Quicksort {
             System.out.println(
                 "Wrong number of command line args, please pass 2 files and the numbers of buffers");
         }
+        if (Integer.valueOf(args[1]).intValue() > 20 && Integer.valueOf(args[1])
+            .intValue() < 1) {
+            System.out.println(
+                "Wrong number of buffers, please input an integer between 1 and 20");
+        }
         /*
          * Take file and construct char[] from it
          */
         String inputFile = args[0];
         String outputFile = args[2];
         byte[] fileContents = new byte[4096];
+        BufferPool data = null;
         long beginTime = 0;
         long endTime = 0;
         try (RandomAccessFile stmt = new RandomAccessFile(inputFile, "rw")) {
-            stmt.read(fileContents);
+            data = new BufferPool(inputFile, Integer.valueOf(args[1])
+                .intValue());
+            data.readFile();
             beginTime = System.currentTimeMillis();
-            quickSort(fileContents, 0, 4092);
+            quickSort(fileContents, 0, 4096);
             endTime = System.currentTimeMillis();
             stmt.seek(0);
             stmt.write(fileContents);
@@ -68,25 +69,35 @@ public class Quicksort {
         }
         catch (IOException e) {
             // Exception handling
+            e.printStackTrace();
         }
         for (int i = 0; i < fileContents.length; i++) {
             System.out.print(fileContents[i] + " ");
         }
         try (RandomAccessFile stmt = new RandomAccessFile(outputFile, "rw")) {
             stmt.writeChars("Standard sort on " + inputFile + "\n");
-            stmt.writeChars("Cache Hits: " + String.valueOf(cacheHits) + "\n");
-            stmt.writeChars("Disk Reads: " + String.valueOf(reads) + "\n");
-            stmt.writeChars("Disk Writes: " + String.valueOf(writes) + "\n");
+            stmt.writeChars("Cache Hits: " + String.valueOf(data.getCacheHits())
+                + "\n");
+            stmt.writeChars("Disk Reads: " + String.valueOf(data.getDiskReads())
+                + "\n");
+            stmt.writeChars("Disk Writes: " + String.valueOf(data
+                .getDiskWrites()) + "\n");
             long execTime = endTime - beginTime;
             stmt.writeChars(String.valueOf(execTime));
             stmt.close();
         }
         catch (IOException e) {
             // Exception handling
+            e.printStackTrace();
         }
     }
 
 
+    /*
+     * Blake, so the project says this quick sort should be an external sort
+     * which was the textbook 9.6 module you shouldn't need to change the code I
+     * have since that is just the quicksort algorithm
+     */
     public static void quickSort(byte[] arr, int begin, int end) {
         if (begin < end) {
             int partitionIndex = partition(arr, begin, end);
