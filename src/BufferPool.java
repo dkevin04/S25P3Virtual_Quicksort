@@ -11,18 +11,12 @@ public class BufferPool {
     private int numBuffers;
     private RandomAccessFile raf;
 
-    private int cacheHits;
-    private int diskReads;
-    private int diskWrites;
-
     public BufferPool(String file, int num) throws FileNotFoundException {
         this.raf = new RandomAccessFile(file, "rw");
         this.numBuffers = num;
-        this.buffers = new Buffer[BLOCK_SIZE];
+        this.buffers = new Buffer[num];
 
-        cacheHits = 0;
-        diskReads = 0;
-        diskWrites = 0;
+        
     }
 
 
@@ -55,17 +49,14 @@ public class BufferPool {
     }
 
 
-    public int getCacheHits() {
-        return cacheHits;
-    }
+	public void getbytes(byte[] pivot, int i, int j) {
+		// TODO Auto-generated method stub
+		
+	}
 
 
-    public int getDiskReads() {
-        return diskReads;
-    }
-
-
-    public int getDiskWrites() {
-        return diskWrites;
-    }
+	public void insert(byte[] left, int i, int j) {
+		// TODO Auto-generated method stub
+		
+	}
 }

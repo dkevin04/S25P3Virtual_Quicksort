@@ -1,4 +1,5 @@
 import java.io.*;
+import java.nio.ByteBuffer;
 
 /*
  * A quicksort implementation which takes text files as input assuming each data
@@ -51,30 +52,32 @@ public class Quicksort {
          * Take file and construct char[] from it
          */
         String inputFile = args[0];
+        int numBuffers = Integer.valueOf(args[1]);
         String outputFile = args[2];
-        byte[] fileContents = new byte[4096];
         BufferPool data = null;
-        long beginTime = 0;
-        long endTime = 0;
+        Statistics stat = null;
         try (RandomAccessFile stmt = new RandomAccessFile(inputFile, "rw")) {
-            data = new BufferPool(inputFile, Integer.valueOf(args[1])
-                .intValue());
-            data.readFile();
-            beginTime = System.currentTimeMillis();
-            quickSort(fileContents, 0, 4096);
-            endTime = System.currentTimeMillis();
-            stmt.seek(0);
-            stmt.write(fileContents);
-            stmt.close();
+            data = new BufferPool(inputFile, numBuffers);
+            stat = new Statistics(inputFile);
+            int numRecords = (int) stmt.length() /4;
+            long start = System.currentTimeMillis();
+            quickSort(data, 0, numRecords - 1);
+            data.flush();
+            long end = System.currentTimeMillis();
+
+            stat.setExTime(end - start);
+            stat.writeToFile(outputFile);
         }
         catch (IOException e) {
             // Exception handling
             e.printStackTrace();
         }
-        for (int i = 0; i < fileContents.length; i++) {
-            System.out.print(fileContents[i] + " ");
-        }
-        try (RandomAccessFile stmt = new RandomAccessFile(outputFile, "rw")) {
+        
+        /*
+         * for (int i = 0; i < fileContents.length; i++) {
+           	System.out.print(fileContents[i] + " ");
+        	}
+         * try (RandomAccessFile stmt = new RandomAccessFile(outputFile, "rw")) {
             stmt.writeChars("Standard sort on " + inputFile + "\n");
             stmt.writeChars("Cache Hits: " + String.valueOf(data.getCacheHits())
                 + "\n");
@@ -90,6 +93,8 @@ public class Quicksort {
             // Exception handling
             e.printStackTrace();
         }
+         */
+        
     }
 
 
@@ -98,34 +103,47 @@ public class Quicksort {
      * which was the textbook 9.6 module you shouldn't need to change the code I
      * have since that is just the quicksort algorithm
      */
-    public static void quickSort(byte[] arr, int begin, int end) {
+    public static void quickSort(BufferPool bp, int begin, int end) throws IOException {
         if (begin < end) {
-            int partitionIndex = partition(arr, begin, end);
+            int partitionIndex = partition(bp, begin, end);
 
-            quickSort(arr, begin, partitionIndex - 1);
-            quickSort(arr, partitionIndex, end);
+            quickSort(bp, begin, partitionIndex - 1);
+            quickSort(bp, partitionIndex, end);
         }
     }
 
 
-    public static int partition(byte[] arr, int begin, int end) {
-        byte pivot = arr[end];
-        int i = (begin - 1);
+    public static int partition(BufferPool bp, int begin, int end) throws IOException {
+        byte[] pivot = new byte[4];
+        byte[] left = new byte[4];
+        byte[] right = new byte[4];
+
+        bp.getbytes(pivot, 4, end * 4);
+        short pivotKey = ByteBuffer.wrap(pivot).getShort();
+
+        int i = begin - 1;
 
         for (int j = begin; j < end; j++) {
-            if (arr[j] <= pivot) {
+            bp.getbytes(left, 4, j * 4);
+            short key = ByteBuffer.wrap(left).getShort();
+
+            if (key <= pivotKey) {
                 i++;
 
-                byte swapTemp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = swapTemp;
+                bp.getbytes(right, 4, i * 4);
+
+                // Swap left <-> right
+                bp.insert(left, 4, i * 4);
+                bp.insert(right, 4, j * 4);
             }
         }
 
-        byte swapTemp = arr[i + 1];
-        arr[i + 1] = arr[end];
-        arr[end] = swapTemp;
+        // Final pivot swap
+        bp.getbytes(left, 4, (i + 1) * 4);
+        bp.insert(pivot, 4, (i + 1) * 4);
+        bp.insert(left, 4, end * 4);
 
         return i + 1;
     }
+
 }
