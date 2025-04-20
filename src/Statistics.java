@@ -47,7 +47,7 @@ public class Statistics {
     public void writeToFile(String statFileName) throws IOException {
         BufferedWriter writer = null;
         try {
-            FileWriter fw = new FileWriter(statFileName, true); // append = true
+            FileWriter fw = new FileWriter(statFileName, true);
             writer = new BufferedWriter(fw);
 
             writer.write("Standard sort on " + file + "\n");
@@ -58,7 +58,7 @@ public class Statistics {
         }
         finally {
             if (writer != null) {
-                writer.close();  // Manually close the writer
+                writer.close();
             }
         }
     }

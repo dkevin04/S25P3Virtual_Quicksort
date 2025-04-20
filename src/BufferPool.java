@@ -10,11 +10,12 @@ public class BufferPool {
     private Buffer[] buffers;
     private int numBuffers;
     private RandomAccessFile raf;
-
-    public BufferPool(String file, int num) throws FileNotFoundException {
+    private Statistics stat; 
+    public BufferPool(String file, int num, Statistics stat) throws FileNotFoundException {
         this.raf = new RandomAccessFile(file, "rw");
         this.numBuffers = num;
         this.buffers = new Buffer[num];
+        this.stat = stat;
 
         
     }
@@ -49,14 +50,46 @@ public class BufferPool {
     }
 
 
-	public void getbytes(byte[] pivot, int i, int j) {
+	public void getbytes(byte[] space, int size, int pos) {
+		int block = pos/BLOCK_SIZE;
+		int start = pos%BLOCK_SIZE;
+		
+		/*
+		 * this is code for when we have a cache hit
+		 */
+		for (int i =0; i < numBuffers; i++) {
+			if (buffers[i].getBlockIndex() == block) {
+				System.arraycopy(buffers, 0, buffers, 1, i);
+				buffers[0] = buffers[i];
+				stat.increaseHits();
+				System.arraycopy(buffers[i].getData(), start, space, 0, size);
+	            return;
+			}
+		}
+		/*
+		 * when we have a cache miss and have to load
+		 */
+		
+		
+	}
+
+
+	public void insert(byte[] space, int size, int pos) {
 		// TODO Auto-generated method stub
 		
 	}
 
 
-	public void insert(byte[] left, int i, int j) {
-		// TODO Auto-generated method stub
+	public void flush() throws IOException {
+		for (int i = 0; i < numBuffers; i++) {
+			Buffer buffer = buffers[i];
+			if (buffer.isDirty()) {
+				int start = buffer.getBlockIndex()%BLOCK_SIZE;
+				raf.seek(start);
+				raf.write(buffer.getData());
+				buffer.setDirty(false);
+			}
+		}
 		
 	}
 }

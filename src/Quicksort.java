@@ -57,8 +57,8 @@ public class Quicksort {
         BufferPool data = null;
         Statistics stat = null;
         try (RandomAccessFile stmt = new RandomAccessFile(inputFile, "rw")) {
-            data = new BufferPool(inputFile, numBuffers);
             stat = new Statistics(inputFile);
+            data = new BufferPool(inputFile, numBuffers, stat);
             int numRecords = (int) stmt.length() /4;
             long start = System.currentTimeMillis();
             quickSort(data, 0, numRecords - 1);
@@ -131,14 +131,10 @@ public class Quicksort {
                 i++;
 
                 bp.getbytes(right, 4, i * 4);
-
-                // Swap left <-> right
                 bp.insert(left, 4, i * 4);
                 bp.insert(right, 4, j * 4);
             }
         }
-
-        // Final pivot swap
         bp.getbytes(left, 4, (i + 1) * 4);
         bp.insert(pivot, 4, (i + 1) * 4);
         bp.insert(left, 4, end * 4);
