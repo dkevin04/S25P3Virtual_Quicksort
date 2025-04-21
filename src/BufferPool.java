@@ -153,7 +153,8 @@ public class BufferPool {
                 System.arraycopy(buffers, 0, buffers, 1, i);
                 buffers[0] = buffers[i];
                 stat.increaseHits();
-                System.arraycopy(buffers[i].getData(), start, space, 0, sz);
+                System.arraycopy(space, 0, buffers[i].getData(), start, sz);
+                buffers[0].setDirty(true);
                 return;
             }
         }
@@ -176,7 +177,7 @@ public class BufferPool {
                 evicted.setDirty(false);
                 stat.increaseWrites();
             }
-            System.arraycopy(buffers, 0, buffers, 1, numBuffers - 1);
+            System.arraycopy(buffers, 0, buffers, 1, numBuffers - 1); 
             buffers[0] = newBuff;
         }
         /*

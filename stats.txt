@@ -28,3 +28,21 @@ Disk Reads: 0
 Disk Writes: 0
 Execution Time (ms): 7
 
+Standard sort on input.bin
+Cache Hits: 29548
+Disk Reads: 0
+Disk Writes: 0
+Execution Time (ms): 9
+
+Standard sort on input.bin
+Cache Hits: 30448
+Disk Reads: 0
+Disk Writes: 0
+Execution Time (ms): 5
+
+Standard sort on input.bin
+Cache Hits: 28762
+Disk Reads: 0
+Disk Writes: 1
+Execution Time (ms): 8
+
