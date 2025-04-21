@@ -1,16 +1,12 @@
 import java.io.*;
 import java.nio.ByteBuffer;
 
-/*
- * A quicksort implementation which takes text files as input assuming each data
- * entry is a single char followed by three white space chars
- */
-
 /**
- * The class containing the main method.
+ * The class containing the main method and a external sorting quicksort method.
+ * Here assumed to be working with bufferpools, see BufferPool.java
  *
  * @author Kevin Dong
- * @version 31/03/2025
+ * @version 20/04/2025
  */
 
 // On my honor:
@@ -59,7 +55,7 @@ public class Quicksort {
         try (RandomAccessFile stmt = new RandomAccessFile(inputFile, "rw")) {
             stat = new Statistics(inputFile);
             data = new BufferPool(inputFile, numBuffers, stat);
-            int numRecords = (int) stmt.length() /4;
+            int numRecords = (int)stmt.length() / 4;
             long start = System.currentTimeMillis();
             quickSort(data, 0, numRecords - 1);
             data.flush();
@@ -72,48 +68,48 @@ public class Quicksort {
             // Exception handling
             e.printStackTrace();
         }
-        
-        /*
-         * for (int i = 0; i < fileContents.length; i++) {
-           	System.out.print(fileContents[i] + " ");
-        	}
-         * try (RandomAccessFile stmt = new RandomAccessFile(outputFile, "rw")) {
-            stmt.writeChars("Standard sort on " + inputFile + "\n");
-            stmt.writeChars("Cache Hits: " + String.valueOf(data.getCacheHits())
-                + "\n");
-            stmt.writeChars("Disk Reads: " + String.valueOf(data.getDiskReads())
-                + "\n");
-            stmt.writeChars("Disk Writes: " + String.valueOf(data
-                .getDiskWrites()) + "\n");
-            long execTime = endTime - beginTime;
-            stmt.writeChars(String.valueOf(execTime));
-            stmt.close();
-        }
-        catch (IOException e) {
-            // Exception handling
-            e.printStackTrace();
-        }
-         */
-        
     }
 
 
-    /*
-     * Blake, so the project says this quick sort should be an external sort
-     * which was the textbook 9.6 module you shouldn't need to change the code I
-     * have since that is just the quicksort algorithm
+    /**
+     * QuickSort implementation using an external sorting paradigm so sort large
+     * files of data. Note that the current implementation assumes the data is
+     * readable to a byte format
+     * 
+     * @param bp
+     *            bufferpool object which stores the file's data
+     * @param begin
+     *            first index of the unsorted portion of array
+     * @param end
+     *            last index of the unsorted portion of array
+     * @throws IOException
+     *             throws upon failure to acquire or write i/o sufficiently
      */
-    public static void quickSort(BufferPool bp, int begin, int end) throws IOException {
+    public static void quickSort(BufferPool bp, int begin, int end)
+        throws IOException {
         if (begin < end) {
             int partitionIndex = partition(bp, begin, end);
 
             quickSort(bp, begin, partitionIndex - 1);
-            quickSort(bp, partitionIndex+1, end);
+            quickSort(bp, partitionIndex + 1, end);
         }
     }
 
 
-    public static int partition(BufferPool bp, int begin, int end) throws IOException {
+    /**
+     * 
+     * @param bp
+     *            bufferpool object which stores the file's data
+     * @param begin
+     *            first index of the unsorted portion of array
+     * @param end
+     *            last index of the unsorted portion of array
+     * @return first index of the un-swapped portion of array
+     * @throws IOException
+     *             throws upon failure to acquire or write i/o sufficiently
+     */
+    private static int partition(BufferPool bp, int begin, int end)
+        throws IOException {
         byte[] pivot = new byte[4];
         byte[] left = new byte[4];
         byte[] right = new byte[4];
