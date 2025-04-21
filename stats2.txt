@@ -1,6 +1,0 @@
-Standard sort on checkme.txt
-Cache Hits: 100526
-Disk Reads: 0
-Disk Writes: 1
-Execution Time (ms): 13
-

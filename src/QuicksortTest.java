@@ -58,7 +58,7 @@ public class QuicksortTest extends TestCase {
         String[] args = new String[3];
         args[0] = fname;
         args[1] = "1";
-        args[2] = "stats2.txt";
+        args[2] = "stats.txt";
         Quicksort.main(args);
         // hmmm... maybe do some sorting on that file ...
         // then we can do:

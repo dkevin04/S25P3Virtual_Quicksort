@@ -141,7 +141,7 @@ public class Statistics {
             writer.write("Cache Hits: " + cacheHits + "\n");
             writer.write("Disk Reads: " + diskReads + "\n");
             writer.write("Disk Writes: " + diskWrites + "\n");
-            writer.write("Execution Time (ms): " + exTime + "\n\n");
+            writer.write("Execution Time (ms): " + exTime + "\n");
         }
         finally {
             if (writer != null) {

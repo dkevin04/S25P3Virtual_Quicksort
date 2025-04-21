@@ -99,6 +99,7 @@ public class BufferPool {
         byte[] data = new byte[BLOCK_SIZE];
         raf.seek(block * BLOCK_SIZE);
         raf.readFully(data);
+        stat.increaseReads();
         Buffer newBuff = new Buffer(block, data);
 
         /*
@@ -109,8 +110,8 @@ public class BufferPool {
             if (evicted.isDirty()) {
                 raf.seek(evicted.getBlockIndex() * BLOCK_SIZE);
                 raf.write(evicted.getData());
-                evicted.setDirty(false);
                 stat.increaseWrites();
+                evicted.setDirty(false);
             }
             System.arraycopy(buffers, 0, buffers, 1, numBuffers - 1);
             buffers[0] = newBuff;
@@ -164,6 +165,7 @@ public class BufferPool {
         byte[] data = new byte[BLOCK_SIZE];
         raf.seek(block * BLOCK_SIZE);
         raf.readFully(data);
+        stat.increaseReads();
         Buffer newBuff = new Buffer(block, data);
 
         /*
@@ -174,10 +176,10 @@ public class BufferPool {
             if (evicted.isDirty()) {
                 raf.seek(evicted.getBlockIndex() * BLOCK_SIZE);
                 raf.write(evicted.getData());
-                evicted.setDirty(false);
                 stat.increaseWrites();
+                evicted.setDirty(false);
             }
-            System.arraycopy(buffers, 0, buffers, 1, numBuffers - 1); 
+            System.arraycopy(buffers, 0, buffers, 1, numBuffers - 1);
             buffers[0] = newBuff;
         }
         /*
