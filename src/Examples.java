@@ -5,10 +5,21 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+/**
+ * Example class
+ *
+ * @author CS3114 Instructors and TAs
+ * @version 2025
+ */
+
 public class Examples {
 
-    final static int REC_BYTES_LENGTH = 4;
+    private final static int REC_BYTES_LENGTH = 4;
 
+    /**
+     * @param args
+     *            Command line parameters. See the project spec!!!
+     */
     public static void main(String[] args) {
         byte[] someTwoRecs = { 3, 4, 8, 8, 2, 5, 9, 9 };
         // rec0 key is bytes 3 4 combined into a short; value is 8 and 8
@@ -21,8 +32,8 @@ public class Examples {
 
         // Demo of copying a file....
         int randNum = (int)(System.currentTimeMillis() % 30);
-        Path src = Paths.get("src", "Examples.java");// inside src folder is
-                                                     // Examples.java
+        Path src = Paths.get("src", "Examples.java"); // inside src folder is
+                                                      // Examples.java
         Path dest = Paths.get("src", "ExamplesCopy" + randNum + ".java");
         try {
             Files.copy(src, dest, StandardCopyOption.REPLACE_EXISTING);
@@ -35,6 +46,11 @@ public class Examples {
     }
 
 
+    /**
+     * Sorts two records
+     * 
+     * @param recs records
+     */
     public static void sortTwoRecords(byte[] recs) {
         final int recLen = REC_BYTES_LENGTH; // just for a shorter name
         assert recs.length == 2 * recLen;

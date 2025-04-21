@@ -16,6 +16,11 @@ public class QuicksortTest extends TestCase {
     }
 
 
+    /**
+     * 
+     * @throws IOException
+     *             throws upon failure to acquire or write i/o sufficiently
+     */
     public void testFileGen() throws IOException {
         String fname = "threeBlock.txt";
         int blocks = 3;
@@ -30,7 +35,7 @@ public class QuicksortTest extends TestCase {
         assertEquals(calcedBytes, fileNumBytes); // size is correct!
 
         RandomAccessFile raf = new RandomAccessFile(f, "r");
-        short firstKey = raf.readShort();// reads two bytes
+        short firstKey = raf.readShort(); // reads two bytes
         assertEquals(8273, firstKey); // first key looks like ' Q', translates
                                       // to 8273
 
@@ -43,6 +48,11 @@ public class QuicksortTest extends TestCase {
     }
 
 
+    /**
+     * 
+     * @throws Exception
+     *             either a IOException or FileNotFoundException
+     */
     public void testCheckFile() throws Exception {
         assertTrue(CheckFile.check("tinySorted.txt"));
 
@@ -77,19 +87,17 @@ public class QuicksortTest extends TestCase {
      */
     public void testSorting() throws Exception {
         String fname = "input.bin";
-        FileGenerator fg = new FileGenerator(fname, 1);
+        FileGenerator fg = new FileGenerator(fname, 2);
         fg.generateFile(FileType.BINARY);
 
         assertFalse(CheckFile.check(fname)); // file shouldn't be sorted
 
         String[] args = new String[3];
         args[0] = fname; // the file to be sorted.
-        args[1] = "1"; // number of buffers, can impact performance
+        args[1] = "2"; // number of buffers, can impact performance
         args[2] = "stats.txt"; // filename for sorting stats
         Quicksort.main(args);
         // Now the file *should* be sorted, so lets check!
-
-        // TODO: In a real test, the following should work:
         assertTrue(CheckFile.check(fname));
     }
 

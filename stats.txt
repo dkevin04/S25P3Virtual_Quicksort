@@ -18,3 +18,48 @@ Cache Hits: 37156
 Disk Reads: 1
 Disk Writes: 1
 Execution Time (ms): 1
+Standard sort on checkme.txt
+Cache Hits: 100526
+Disk Reads: 1
+Disk Writes: 1
+Execution Time (ms): 4
+Standard sort on input.bin
+Cache Hits: 440319
+Disk Reads: 7140
+Disk Writes: 4948
+Execution Time (ms): 36
+Standard sort on checkme.txt
+Cache Hits: 100526
+Disk Reads: 1
+Disk Writes: 1
+Execution Time (ms): 6
+Standard sort on input.bin
+Cache Hits: 74577
+Disk Reads: 1129
+Disk Writes: 563
+Execution Time (ms): 6
+Standard sort on checkme.txt
+Cache Hits: 100526
+Disk Reads: 1
+Disk Writes: 1
+Execution Time (ms): 4
+Standard sort on input.bin
+Cache Hits: 365661
+Disk Reads: 30366
+Disk Writes: 30191
+Execution Time (ms): 145
+Standard sort on checkme.txt
+Cache Hits: 100526
+Disk Reads: 1
+Disk Writes: 1
+Execution Time (ms): 4
+Standard sort on checkme.txt
+Cache Hits: 100526
+Disk Reads: 1
+Disk Writes: 1
+Execution Time (ms): 3
+Standard sort on checkme.txt
+Cache Hits: 100526
+Disk Reads: 1
+Disk Writes: 1
+Execution Time (ms): 7

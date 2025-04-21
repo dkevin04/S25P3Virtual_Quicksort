@@ -39,13 +39,13 @@ public class Quicksort {
         // Checks for proper arguments to be passed to avoid null pointer and
         // i/o errors
         if (args.length != 3) {
-            System.out.println(
-                "Wrong number of command line args, please pass 2 files and the numbers of buffers");
+            System.out.println("Wrong number of command line args, "
+                + "please pass 2 files and the numbers of buffers");
         }
         if (Integer.valueOf(args[1]).intValue() > 20 && Integer.valueOf(args[1])
             .intValue() < 1) {
-            System.out.println(
-                "Wrong number of buffers, please input an integer between 1 and 20");
+            System.out.println("Wrong number of buffers, "
+                + "please input an integer between 1 and 20");
         }
 
         // variables used to access i/o files, construct the BufferPool, and a

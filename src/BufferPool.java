@@ -30,7 +30,7 @@ import java.io.*;
 // during the discussion. I have violated neither the spirit nor
 // letter of this restriction.
 public class BufferPool {
-    private static int BLOCK_SIZE = 4096;
+    private static final int BLOCK_SIZE = 4096;
     private Buffer[] buffers;
     private int numBuffers;
     private int size;
