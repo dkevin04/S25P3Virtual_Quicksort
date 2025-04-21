@@ -123,6 +123,8 @@ public class Quicksort {
 
 
     /**
+     * Takes a value as the pivot and places the rest of the array left or right
+     * relative to the pivot. Returns the index of the pivot
      * 
      * @param bp
      *            bufferpool object which stores the file's data
@@ -130,7 +132,7 @@ public class Quicksort {
      *            first index of the unsorted portion of array
      * @param end
      *            last index of the unsorted portion of array
-     * @return first index of the un-swapped portion of array
+     * @return index of the pivot
      * @throws IOException
      *             throws upon failure to acquire or write i/o sufficiently
      */
@@ -168,7 +170,7 @@ public class Quicksort {
         bp.insert(pivot, 4, (i + 1) * 4);
         bp.insert(left, 4, end * 4);
 
-        // index of the un-swapped portion of array
+        // index of the pivot
         return i + 1;
     }
 
