@@ -168,6 +168,7 @@ public class BufferPool {
 				int start = buffer.getBlockIndex() * BLOCK_SIZE;
 				raf.seek(start);
 				raf.write(buffer.getData());
+				stat.increaseWrites();
 				buffer.setDirty(false);
 			}
 		}

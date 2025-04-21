@@ -10,6 +10,7 @@ public class Statistics {
     private long exTime;
     
     public Statistics(String input) {
+    	this.file = file;
     	cacheHits = 0;
         diskReads = 0;
         diskWrites = 0;

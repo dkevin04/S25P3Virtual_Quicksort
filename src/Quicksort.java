@@ -108,7 +108,7 @@ public class Quicksort {
             int partitionIndex = partition(bp, begin, end);
 
             quickSort(bp, begin, partitionIndex - 1);
-            quickSort(bp, partitionIndex, end);
+            quickSort(bp, partitionIndex+1, end);
         }
     }
 

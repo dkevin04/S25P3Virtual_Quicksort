@@ -10,3 +10,21 @@ Disk Reads: 1
 Disk Writes: 1
 Execution Time (ms): 9
 
+Standard sort on null
+Cache Hits: 26818
+Disk Reads: 0
+Disk Writes: 0
+Execution Time (ms): 9
+
+Standard sort on null
+Cache Hits: 31620
+Disk Reads: 0
+Disk Writes: 0
+Execution Time (ms): 7
+
+Standard sort on null
+Cache Hits: 24980
+Disk Reads: 0
+Disk Writes: 0
+Execution Time (ms): 7
+
