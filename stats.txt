@@ -63,3 +63,98 @@ Cache Hits: 100526
 Disk Reads: 1
 Disk Writes: 1
 Execution Time (ms): 7
+Standard sort on checkme.txt
+Cache Hits: 100526
+Disk Reads: 1
+Disk Writes: 1
+Execution Time (ms): 16
+Standard sort on input.bin
+Cache Hits: 71510
+Disk Reads: 1765
+Disk Writes: 901
+Execution Time (ms): 28
+Standard sort on checkme.txt
+Cache Hits: 100526
+Disk Reads: 1
+Disk Writes: 1
+Execution Time (ms): 11
+Standard sort on input.bin
+Cache Hits: 71524
+Disk Reads: 2
+Disk Writes: 2
+Execution Time (ms): 7
+Standard sort on checkme.txt
+Cache Hits: 100526
+Disk Reads: 1
+Disk Writes: 1
+Execution Time (ms): 8
+Standard sort on input.bin
+Cache Hits: 69000
+Disk Reads: 2
+Disk Writes: 2
+Execution Time (ms): 7
+Standard sort on checkme.txt
+Cache Hits: 100526
+Disk Reads: 1
+Disk Writes: 1
+Execution Time (ms): 10
+Standard sort on input.bin
+Cache Hits: 65384
+Disk Reads: 2
+Disk Writes: 2
+Execution Time (ms): 4
+Standard sort on checkme.txt
+Cache Hits: 100526
+Disk Reads: 1
+Disk Writes: 1
+Execution Time (ms): 9
+Standard sort on checkme.txt
+Cache Hits: 100526
+Disk Reads: 1
+Disk Writes: 1
+Execution Time (ms): 8
+Standard sort on input.bin
+Cache Hits: 67044
+Disk Reads: 2
+Disk Writes: 2
+Execution Time (ms): 8
+Standard sort on checkme.txt
+Cache Hits: 100526
+Disk Reads: 1
+Disk Writes: 1
+Execution Time (ms): 12
+Standard sort on input.bin
+Cache Hits: 75367
+Disk Reads: 2
+Disk Writes: 2
+Execution Time (ms): 5
+Standard sort on checkme.txt
+Cache Hits: 100526
+Disk Reads: 1
+Disk Writes: 1
+Execution Time (ms): 8
+Standard sort on input.bin
+Cache Hits: 72483
+Disk Reads: 2
+Disk Writes: 2
+Execution Time (ms): 7
+Standard sort on checkme.txt
+Cache Hits: 100526
+Disk Reads: 1
+Disk Writes: 1
+Execution Time (ms): 8
+Standard sort on input.bin
+Cache Hits: 69369
+Disk Reads: 2
+Disk Writes: 2
+Execution Time (ms): 5
+Standard sort on checkme.txt
+Cache Hits: 100526
+Disk Reads: 1
+Disk Writes: 1
+Execution Time (ms): 11
+Standard sort on input.bin
+Cache Hits: 76407
+Disk Reads: 2
+Disk Writes: 2
+Execution Time (ms): 4
