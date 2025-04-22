@@ -74,7 +74,7 @@ public class QuicksortTest extends TestCase {
 	/**
 	 * This method is a demonstration of the file generator and file checker
 	 * functionality. It calles generateFile to create a small binary file. It then
-	 * calls the file checker to see if it is sorted (presumably not since we don't
+	 * calls the file checker to see i f it is sorted (presumably not since we don't
 	 * call a sort method in this test, so we assertFalse).
 	 *
 	 * @throws Exception either a IOException or FileNotFoundException

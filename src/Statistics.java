@@ -1,6 +1,7 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 
 /**
  * Simple class to track interactions with disk and cache memory, thereby
@@ -132,21 +133,14 @@ public class Statistics {
      *             throws upon failure to acquire or write i/o sufficiently
      */
     public void writeToFile(String statFileName) throws IOException {
-        BufferedWriter writer = null;
-        try {
-            FileWriter fw = new FileWriter(statFileName, true);
-            writer = new BufferedWriter(fw);
+    	try (RandomAccessFile raf = new RandomAccessFile(statFileName, "rw")) {
+            raf.seek(raf.length()); // Move to the end for appending
 
-            writer.write("Standard sort on " + file + "\n");
-            writer.write("Cache Hits: " + cacheHits + "\n");
-            writer.write("Disk Reads: " + diskReads + "\n");
-            writer.write("Disk Writes: " + diskWrites + "\n");
-            writer.write("Execution Time (ms): " + exTime + "\n");
-        }
-        finally {
-            if (writer != null) {
-                writer.close();
-            }
+            raf.writeBytes("Standard sort on " + file + "\n");
+            raf.writeBytes("Cache Hits: " + cacheHits + "\n");
+            raf.writeBytes("Disk Reads: " + diskReads + "\n");
+            raf.writeBytes("Disk Writes: " + diskWrites + "\n");
+            raf.writeBytes("Execution Time (ms): " + exTime + "\n");
         }
     }
 }
