@@ -1,5 +1,3 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
@@ -133,7 +131,7 @@ public class Statistics {
      *             throws upon failure to acquire or write i/o sufficiently
      */
     public void writeToFile(String statFileName) throws IOException {
-    	try (RandomAccessFile raf = new RandomAccessFile(statFileName, "rw")) {
+        try (RandomAccessFile raf = new RandomAccessFile(statFileName, "rw")) {
             raf.seek(raf.length()); // Move to the end for appending
 
             raf.writeBytes("Standard sort on " + file + "\n");

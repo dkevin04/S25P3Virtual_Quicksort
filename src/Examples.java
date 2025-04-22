@@ -49,7 +49,8 @@ public class Examples {
     /**
      * Sorts two records
      * 
-     * @param recs records
+     * @param recs
+     *            records
      */
     public static void sortTwoRecords(byte[] recs) {
         final int recLen = REC_BYTES_LENGTH; // just for a shorter name
